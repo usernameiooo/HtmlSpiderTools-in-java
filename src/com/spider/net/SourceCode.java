@@ -37,7 +37,6 @@ public class SourceCode {
 	 * @param canJump 是否可以重定向*/
 	public StringBuffer getSourceCodeInGet(String url,boolean canJump) {
 		try {
-			StringBuffer sourceCode = new StringBuffer();
 			HttpURLConnection httpUrlCon;
 			httpUrlCon = getConnection(url);
 			handleHeader(httpUrlCon);
