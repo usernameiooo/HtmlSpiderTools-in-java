@@ -10,7 +10,6 @@ import java.util.*;
  * 用accept()方法接收要下载的图片*/
 public class DownloadManager {
     String name="downloadManager";
-
     public void setName(String name) {
         this.name = name;
     }
