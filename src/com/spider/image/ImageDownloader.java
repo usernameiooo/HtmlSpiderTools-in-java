@@ -8,8 +8,7 @@ import java.net.URLConnection;
 
 public class ImageDownloader {
     public boolean isEmpty(String s){
-        if(s==null||s.equals(""))return true;
-        return false;
+        return s == null || s.equals("");
     }
     public void download(String imageUrl,String pathName) throws IOException {
         if(isEmpty(imageUrl)||isEmpty(pathName))return;
