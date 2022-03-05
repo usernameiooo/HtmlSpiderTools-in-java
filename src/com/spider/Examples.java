@@ -1,5 +1,6 @@
 package com.spider;
 
+import com.spider.analyse.StringUtil;
 import com.spider.image.DownloadManager;
 import com.spider.image.ImageDownloader;
 import com.spider.net.SourceCode;
@@ -7,9 +8,15 @@ import com.spider.net.SourceCode;
 import java.io.IOException;
 
 public class Examples {
+    public static void main(String[] args) {
+        //new Examples().testStringUtil();
+          new Examples().testSourceCode();
+    }
    public void testStringUtil(){
-   //
-
+       String src="01234565656";
+       String str="56";
+       System.out.println(StringUtil.findStrIn(src, str, 2));
+       System.out.println(StringUtil.backwardFindStrIn(src, str, 1));
    }
    public void testImageDownloader(){
        //
@@ -42,5 +49,7 @@ public class Examples {
                    ,true
            );
            System.out.println(source);
+       System.out.println(sourceCode.getSourceCodeInPost(
+               "https://www.baidu.com/", ""));
    }
 }

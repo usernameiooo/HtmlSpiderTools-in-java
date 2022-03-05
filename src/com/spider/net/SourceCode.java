@@ -24,14 +24,7 @@ public class SourceCode {
 	public SourceCode() {
 	    init();
 	}
-	/**打印响应头，用于失败时分析*/
-	private void printHeaders(HttpURLConnection coon){
-		Map<String, List<String>> headerFields = coon.getHeaderFields();
-		Set<String> strings = headerFields.keySet();
-	    for(String key:strings){
-			System.out.println(key+"="+headerFields.get(key));
-		}
-	}
+
 	/**通过get方法获取页面文本内容
 	 * @param url 页面链接
 	 * @param canJump 是否可以重定向*/
@@ -62,7 +55,10 @@ public class SourceCode {
 		}
 		return null;
 	}
-	/**未完成POST方法*/
+	/**发送POST请求
+	 * @param url 请求的url
+	 * @param data 携带的表单数据的格式为name=value&name=value...,如同GET请求url中？后参数串
+	 * */
 	public StringBuffer getSourceCodeInPost(String url,String data){
 		StringBuffer sourceCode = new StringBuffer();
 		HttpURLConnection httpUrlCon;
@@ -80,11 +76,11 @@ public class SourceCode {
 		    //处理响应头
             handleHeader(httpUrlCon);
 			int responseCode=httpUrlCon.getResponseCode();
-			System.out.println(responseCode);
+		//	System.out.println(responseCode);
 			switch (responseCode){
 				case 302: case 301:
 					//跳转
-					String newUrl=httpUrlCon.getHeaderField("location");
+					String newUrl=httpUrlCon.getHeaderField("Location");
 					if(newUrl==null)newUrl=httpUrlCon.getHeaderField("Location");
 					getSourceCodeInGet(newUrl,true);
 					break;
@@ -116,6 +112,7 @@ public class SourceCode {
 		addCookie(connection.getHeaderField("Set-Cookie"));
 	}
 	int userAgent=2;
+	/**客户端列表*/
 	static String[] userAgents={"Chrome/71.0.3578.98 Safari/537.36",
 			"Mozilla/4.0 compatible; MSIE 5.0;Windows NT;",
 			"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"};
@@ -191,8 +188,17 @@ public class SourceCode {
 		for(String key: cookieMap.keySet()){
 			cookie.append(key).append("=").append(cookieMap.get(key)).append(";");
 		}
-		//System.out.println(cookie.toString());
 		return cookie.toString();
+	}
+	/**打印响应头，用于失败时分析*/
+	private void printHeaders(HttpURLConnection coon){
+		Map<String, List<String>> headerFields = coon.getHeaderFields();
+		Set<String> strings = headerFields.keySet();
+		System.out.println("header==================begin");
+		for(String key:strings){
+			System.out.println(key+"="+headerFields.get(key));
+		}
+		System.out.println("header==================end");
 	}
 	protected void init() {
 
