@@ -21,4 +21,12 @@ public class ExpendedString {
     public ExpendedString getBefore( String spilt) {
         return new ExpendedString(StringUtil.getBefore(src,spilt));
     }
+
+    public String toString() {
+        return src;
+    }
+    public String getValue() {
+        return src;
+    }
+
 }

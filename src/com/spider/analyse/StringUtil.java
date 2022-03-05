@@ -21,7 +21,7 @@ public class StringUtil {
             String cut = getBetween(src, start, end);
             if (cut == null) return list;
             list.add(cut);
-            src = src.substring(src.indexOf(end) + end.length());
+            src = src.substring(src.indexOf(end,src.indexOf(start)) + end.length());
         }
         return list;
     }
@@ -37,5 +37,53 @@ public class StringUtil {
         if (i == -1) return null;
         return src.substring(0, i);
     }
-
+    public static boolean isEmpty(String src){
+        return src==null||src.isEmpty();
+    }
+    public static boolean isEmpty(String... src){
+        if(src==null)return true;
+        for(String s:src){
+            if(!s.isEmpty())return false;
+        }
+        return true;
+    }
+    /**逆转字符串*/
+    public static String reverse(String src){
+        if(isEmpty(src))return src;
+        char[] chars = src.toCharArray();
+        int l=chars.length;
+        for(int i=0;i< l/2;i++){
+            char temp=chars[i];
+            chars[i]=chars[l-i-1];
+            chars[l-i-1]=temp;
+        }
+        return new String(chars);
+    }
+    /**找到第几次出现的匹配串的下标
+     * @param src 在src中寻找
+     * @param str 需要寻找的字符串
+     * @param time 需要寻找的str在src中是第几次出现
+     * */
+    public static int findStrIn(String src,String str,int time){
+        int index=src.indexOf(str);
+        if(index==-1)return -1;
+        for(int i=1;i<=time;i++){
+            index=src.indexOf(str,index+str.length());
+            if(index==-1)return -1;
+        }
+        return index;
+    }
+    /**从后往前找到第几次出现的匹配串的下标
+     * @param src 在src中寻找
+     * @param str 需要寻找的字符串
+     * @param time 需要寻找的str在src中是倒数第几次出现
+     * */
+    public static int backwardFindStrIn(String src,String str,int time){
+        String rSrc = reverse(src);
+        String rStr=reverse(str);
+        //rStr在反转字符串rSrc中的下标等于原str的结尾到原src最后一个字符的距离
+        int toEnd = findStrIn(rSrc, rStr, time);
+        //src.length()-1-toEnd-(str.length()-1);
+        return src.length()-toEnd-str.length();
+    }
 }

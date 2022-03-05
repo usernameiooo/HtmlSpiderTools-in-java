@@ -1,5 +1,6 @@
 package com.spider;
 
+import com.spider.image.DownloadManager;
 import com.spider.image.ImageDownloader;
 import com.spider.net.SourceCode;
 
@@ -19,6 +20,15 @@ public class Examples {
        } catch (IOException e) {
            e.printStackTrace();
        }
+   }
+   public void testImagDownloadManager(){
+       //new 一个dm，设置工作路径
+       DownloadManager downloadManager = new DownloadManager("D:\\imageDownload\\");
+       //接收图片
+       downloadManager.accept("https://www.baidu.com/img/flexible/logo/pc/result.png"
+       ,"1.jpg");
+       //设置完成后自动关闭，而不是继续监听。在程序得末尾调用该方法
+       downloadManager.setShutDownOnFinish();
    }
    public void testSourceCode(){
            SourceCode sourceCode=new SourceCode(){
