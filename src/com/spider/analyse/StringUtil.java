@@ -65,8 +65,8 @@ public class StringUtil {
      * @param time 需要寻找的str在src中是第几次出现
      * */
     public static int findStrIn(String src,String str,int time){
-        int index=src.indexOf(str);
-        if(index==-1)return -1;
+        if(time<=0)return -1;
+        int index=-str.length();
         for(int i=1;i<=time;i++){
             index=src.indexOf(str,index+str.length());
             if(index==-1)return -1;
@@ -83,6 +83,7 @@ public class StringUtil {
         String rStr=reverse(str);
         //rStr在反转字符串rSrc中的下标等于原str的结尾到原src最后一个字符的距离
         int toEnd = findStrIn(rSrc, rStr, time);
+        if(toEnd==-1)return -1;
         //src.length()-1-toEnd-(str.length()-1);
         return src.length()-toEnd-str.length();
     }
