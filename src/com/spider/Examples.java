@@ -2,6 +2,7 @@ package com.spider;
 
 import com.spider.analyse.StringUtil;
 import com.spider.image.DownloadManager;
+import com.spider.image.DownloadManagerImpl;
 import com.spider.image.ImageDownloader;
 import com.spider.net.SourceCode;
 
@@ -30,12 +31,12 @@ public class Examples {
    }
    public void testImagDownloadManager(){
        //new 一个dm，设置工作路径
-       DownloadManager downloadManager = new DownloadManager("D:\\imageDownload\\");
+       DownloadManager downloadManager = new DownloadManagerImpl("D:\\imageDownload\\");
        //接收图片
        downloadManager.accept("https://www.baidu.com/img/flexible/logo/pc/result.png"
        ,"1.jpg");
        //设置完成后自动关闭，而不是继续监听。在程序得末尾调用该方法
-       downloadManager.setShutDownOnFinish();
+       downloadManager.waitUntilFinish(100);
    }
    public void testSourceCode(){
            SourceCode sourceCode=new SourceCode(){
@@ -49,7 +50,8 @@ public class Examples {
                    ,true
            );
            System.out.println(source);
-       System.out.println(sourceCode.getSourceCodeInPost(
+           System.out.println(sourceCode.getSourceCodeInPost(
                "https://www.baidu.com/", ""));
+       System.out.println(sourceCode.getHtmlWithAutoRetry("https://www.baidu.com/"));
    }
 }

@@ -1,7 +1,5 @@
 package com.spider.analyse;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class StringUtil {
             String cut = getBetween(src, start, end);
             if (cut == null) return list;
             list.add(cut);
-            src = src.substring(src.indexOf(end,src.indexOf(start)) + end.length());
+            src = src.substring(src.indexOf(end,src.indexOf(start)+start.length()) + end.length());
         }
         return list;
     }
